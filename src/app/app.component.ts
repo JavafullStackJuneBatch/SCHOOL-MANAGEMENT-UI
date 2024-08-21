@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TestService } from './test.service';
+import { ClassroomService } from './services/classroom.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'school-management-ui';
+  
 }

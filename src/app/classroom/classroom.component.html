@@ -1,0 +1,55 @@
+
+
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Classroom</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Teacher</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Course</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Grade</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Student</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="row mt-3">
+      <div class="col-10">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>I d</th>
+              <th>Name</th>
+              <th>Strength</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let classroom of classrooms">
+              <td>{{ classroom.id }}</td>
+              <td>{{ classroom.name }}</td>
+              <td>{{ classroom.strength }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="updateClassroom(classroom.id)">Update</button>
+                <button class="btn btn-sm btn-danger" (click)="deleteClassroom(classroom.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-success btn-block" (click)="addClassroom()">Add</button>
+      </div>
+    </div>
+  </div>
+  
