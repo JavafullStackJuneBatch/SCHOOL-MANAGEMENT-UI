@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClassroomComponent } from './classroom/classroom.component'; // Import this
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ClassroomComponent } from './classroom/classroom.component'; // Import 
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule  ,
     HttpClientModule  
   ],
   providers: [],

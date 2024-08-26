@@ -1,55 +1,67 @@
-
-
 <div class="container">
-    <div class="row">
+  <div class="row">
       <div class="col">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Classroom</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Teacher</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Course</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Grade</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Student</a>
-          </li>
-        </ul>
+          <ul class="nav nav-tabs">
+              <li class="nav-item">
+                  <a class="nav-link active" href="#">Classroom</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Teacher</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Course</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Grade</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Student</a>
+              </li>
+          </ul>
       </div>
-    </div>
-  
-    <div class="row mt-3">
-      <div class="col-10">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>I d</th>
-              <th>Name</th>
-              <th>Strength</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let classroom of classrooms">
-              <td>{{ classroom.id }}</td>
-              <td>{{ classroom.name }}</td>
-              <td>{{ classroom.strength }}</td>
-              <td>
-                <button class="btn btn-sm btn-primary" (click)="updateClassroom(classroom.id)">Update</button>
-                <button class="btn btn-sm btn-danger" (click)="deleteClassroom(classroom.id)">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-2">
-        <button class="btn btn-success btn-block" (click)="addClassroom()">Add</button>
-      </div>
-    </div>
   </div>
-  
+
+  <div class="row mt-3">
+      <div class="col-8">
+          <form [formGroup]="classroomForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label for="name">Classroom Name</label>
+                  <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter classroom name">
+              </div>
+              <div class="form-group">
+                  <label for="strength">Strength</label>
+                  <input type="number" class="form-control" id="strength" formControlName="strength" style = "margin-bottom:21px" placeholder="Enter strength">
+              </div>
+              <button type="submit" class="btn btn-primary" *ngIf="!isEditMode">Add Classroom</button>
+              <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Update Classroom</button>
+              <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancel</button>
+          </form>
+      </div>
+  </div>
+
+  <div class="row mt-3">
+      <div class="col">
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Strength</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let classroom of classrooms">
+                      <td>{{ classroom.id }}</td>
+                      <td>{{ classroom.name }}</td>
+                      <td>{{ classroom.strength }}</td>
+                      <td>
+                          <button class="btn btn-sm btn-primary" (click)="editClassroom(classroom)">Edit</button>
+                          <button class="btn btn-sm btn-danger" (click)="deleteClassroom(classroom.id)">Delete</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>

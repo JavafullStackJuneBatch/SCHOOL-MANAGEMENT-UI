@@ -1,42 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClassroomService } from '../services/classroom.service';
+
 @Component({
   selector: 'app-classroom',
   templateUrl: './classroom.component.html',
-  styleUrl: './classroom.component.css'
 })
-export class ClassroomComponent {
+export class ClassroomComponent implements OnInit {
+  classroomForm: FormGroup;
   classrooms: any[] = [];
+  isEditMode = false;
+  selectedClassroomId: number | null = null;
 
-  constructor(private classroomService: ClassroomService) {}
+  constructor(private fb: FormBuilder, private classroomService: ClassroomService) {
+    this.classroomForm = this.fb.group({
+      name: ['', Validators.required],
+      strength: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.loadClassrooms();
   }
 
-  loadClassrooms(): void {
-    this.classroomService.getClassrooms().subscribe(data => {
+  loadClassrooms() {
+    this.classroomService.getClassrooms().subscribe((data) => {
       this.classrooms = data;
     });
   }
 
-  addClassroom(): void {
-    const newClassroom = { name: 'New Classroom', strength: 30 };
-    this.classroomService.createClassroom(newClassroom).subscribe(() => {
-      this.loadClassrooms();
+  onSubmit() {
+    if (this.isEditMode) {
+      this.updateClassroom();
+    } else {
+      this.addClassroom();
+    }
+  }
+
+  addClassroom() {
+    this.classroomService.createClassroom(this.classroomForm.value).subscribe((data) => {
+      this.classrooms.push(data);
+      this.classroomForm.reset();
     });
   }
 
-  updateClassroom(id: number): void {
-    const updatedClassroom = { name: 'Updated Classroom', strength: 35 };
-    this.classroomService.updateClassroom(id, updatedClassroom).subscribe(() => {
-      this.loadClassrooms();
+  editClassroom(classroom: any) {
+    this.isEditMode = true;
+    this.selectedClassroomId = classroom.id;
+    this.classroomForm.patchValue({
+      name: classroom.name,
+      strength: classroom.strength,
     });
   }
 
-  deleteClassroom(id: number): void {
+  updateClassroom() {
+    this.classroomService.updateClassroom(this.selectedClassroomId!, this.classroomForm.value).subscribe((data) => {
+      const index = this.classrooms.findIndex((c) => c.id === this.selectedClassroomId);
+      this.classrooms[index] = data;
+      this.isEditMode = false;
+      this.classroomForm.reset();
+      this.selectedClassroomId = null;
+    });
+  }
+
+  deleteClassroom(id: number) {
     this.classroomService.deleteClassroom(id).subscribe(() => {
-      this.loadClassrooms();
+      this.classrooms = this.classrooms.filter((c) => c.id !== id);
     });
+  }
+
+  resetForm() {
+    this.classroomForm.reset();
+    this.isEditMode = false;
+    this.selectedClassroomId = null;
   }
 }
