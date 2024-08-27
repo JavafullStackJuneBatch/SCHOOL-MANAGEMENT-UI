@@ -6,18 +6,22 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClassroomComponent } from './classroom/classroom.component'; // Import this
 import { ReactiveFormsModule } from '@angular/forms';
+import { TeacherComponent } from './teacher/teacher.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClassroomComponent
+    ClassroomComponent,
+    TeacherComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule  ,
-    HttpClientModule  
+    HttpClientModule  ,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

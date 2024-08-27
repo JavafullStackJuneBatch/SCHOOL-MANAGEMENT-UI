@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Create or Update Teacher</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Teacher Name:</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="teacher.name" name="name" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="phoneno">Phone Number:</label>
+        <input type="text" id="phoneno" class="form-control" [(ngModel)]="teacher.phoneno" name="phoneno" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="classroom">Classroom:</label>
+        <select id="classroom" class="form-control" [(ngModel)]="teacher.classroom" name="classroom" required>
+          <option *ngFor="let classroom of classrooms" [ngValue]="classroom">{{ classroom.name }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  
+    <h2>Teachers List</h2>
+    <ul>
+      <li *ngFor="let teacher of teachers">
+        {{ teacher.name }} - {{ teacher.phoneno }} - {{ teacher.classroom.name }}
+        <button *ngIf="teacher.id !== undefined" (click)="updateTeacher(teacher.id)">Update</button>
+        <button *ngIf="teacher.id !== undefined" (click)="deleteTeacher(teacher.id)">Delete</button>
+    </li>
+    </ul>
+  </div>
+  
